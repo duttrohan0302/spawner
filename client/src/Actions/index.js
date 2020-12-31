@@ -13,6 +13,7 @@ import {
 export const getMessage = () => async dispatch => {
     try{
         const response = await axios.get('/hello');
+        console.log(response)
         dispatch({
             type:HELLO_MESSAGE_SUCCESS,
             payload: response.data.message

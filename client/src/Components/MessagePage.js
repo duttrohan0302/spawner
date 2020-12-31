@@ -12,6 +12,7 @@ const MessagePage = ({getMessage,message}) => {
         <div>
             <div className="display-4">
                 <center>{message ? message : "Not connected to backend apis yet"}</center>
+                <center>This is the generic message</center>
             </div>
         </div>
     )
