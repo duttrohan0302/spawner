@@ -1,11 +1,19 @@
 const mongoose = require('mongoose');
 const URI = require('../config/index');
 
-mongoose.connect(process.env.MONGODB_URI || URI);
+// Connect to MongoDB
+mongoose
+	.connect(process.env.MONGODB_URI || URI,{
+		useNewUrlParser: true,
+    	useUnifiedTopology: true,
+    	useFindAndModify: false,
+	})
+	// .then(() => console.log("Mongoose Connected"))
+	// .catch((err) => console.log(err));
 
 // When successfully connected
 mongoose.connection.on('connected', () => {
-	console.log('Established Mongoose Default Connection');
+	console.log('Mongoose connected successfully');
 });
 
 // When connection throws an error

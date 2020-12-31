@@ -13,8 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-const routes = require('./routes');
-
+app.use(routes)
 
 app.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}.`);
