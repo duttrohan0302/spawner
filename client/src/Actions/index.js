@@ -1,4 +1,5 @@
-import api from '../Utils/api';
+// import api from '../Utils/api';
+import axios from 'axios';
 // import { setAlert } from './alertActions';
 
 import {
@@ -11,7 +12,7 @@ import {
 
 export const getMessage = () => async dispatch => {
     try{
-        const response = await api.get('/hello');
+        const response = await axios.get('/hello');
         dispatch({
             type:HELLO_MESSAGE_SUCCESS,
             payload: response.data.message
