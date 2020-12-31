@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "a mern app which creates mern apps",
   "main": "server.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
