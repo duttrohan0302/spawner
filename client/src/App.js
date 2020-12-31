@@ -1,34 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import './App.css';
-import funcs from "./utils/api"
+import React from 'react';
+import { Router,Route, Switch } from 'react-router-dom';
+import { history } from './Helpers';
 
-function App() {
-  const [message,setMessage] = useState("")
-  useEffect(()=>{
-    async function getMsg() {
-      const response = await funcs.getMessage();
-      console.log(response)
-      setMessage(response.data.message)
-    }
-    getMsg()
-  })
+import './App.css';
+
+import { Provider } from 'react-redux';
+import store from './Helpers/store';
+import Homepage from './Components/Homepage';
+import Routes from './Routing/Routes';
+
+import DefaultLayoutRoute from './Routing/DefaultLayout';
+
+const App = () => {
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>{message}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+        <Router history={history}>
+            <Switch>
+              <DefaultLayoutRoute exact path='/' component = {Homepage} />
+              <Route component = {Routes} />
+            </Switch>
+        </Router>
+    </Provider>
+    
+    
   );
 }
 
