@@ -8,7 +8,7 @@ router.get('/hello',async (req,res,next)=> {
 // router.use('route',routeName)
 
 if(process.env.NODE_ENV ==="production"){
-    router.use(function(req, res) {
+    router.get('*',function(req, res) {
         res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
 }

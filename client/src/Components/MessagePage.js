@@ -6,6 +6,8 @@ import {getMessage} from '../Actions/index'
 const MessagePage = ({getMessage,message}) => {
 
     useEffect(()=>{
+        console.log("function is being called",message)
+
         getMessage()
     })
     return(
