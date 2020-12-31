@@ -1,6 +1,6 @@
 import React from "react";
 
-const MessagePage = () => {
+const Homepage = () => {
 
     return(
         <div>
@@ -12,4 +12,4 @@ const MessagePage = () => {
 }
 
   
-export default MessagePage;
+export default Homepage;
