@@ -1,11 +1,17 @@
 import axios from 'axios';
+// import store from '../Helpers/store';
+// import { LOGOUT } from '../Actions/types';
 
-async function getMessage () {
-    console.log("react funcS")
-		return await axios.get('/hello');
-	}
+const api = axios;
 
-const funcs = {
-    getMessage
-}
-export default funcs;
+// api.interceptors.response.use(
+//   res => res,
+//   err => {
+//     if (err.response.data.msg === 'Token is not valid') {
+//       store.dispatch({ type: LOGOUT });
+//     }
+//     return Promise.reject(err);
+//   }
+// );
+
+export default api;
