@@ -5,6 +5,7 @@ import DefaultLayoutRoute from './DefaultLayout';
 import NotFound from '../Components/NotFound';
 import MessagePage from '../Components/MessagePage';
 import Homepage from '../Components/Homepage';
+import CreateApp from '../Components/CreateApp';
 
 
 const Routes =  ()  => {
@@ -12,6 +13,7 @@ const Routes =  ()  => {
       <Switch>
         <DefaultLayoutRoute exact path="/" component={Homepage} />
         <DefaultLayoutRoute exact path="/hello" component={MessagePage} />
+        <DefaultLayoutRoute path="/continue-app" component={CreateApp} />
         <DefaultLayoutRoute component={NotFound} />
       </Switch>
   );
