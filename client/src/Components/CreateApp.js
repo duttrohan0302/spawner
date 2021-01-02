@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, FormText, Row, Col} from 'reactstrap';
 import { history } from "../Helpers";
-import { slugify } from "../Utils/slugify";
+// import { slugify } from "../Utils/slugify";
 
 const CreateApp = (props) => {
 

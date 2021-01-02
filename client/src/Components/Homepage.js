@@ -7,7 +7,7 @@ const Homepage = (props) => {
 
     console.log(props.location)
     const [signUpForm, setSignUpForm] = useState(
-        props.location.state.signUpForm ? props.location.state.signUpForm :
+        (props.location && props.location.state && props.location.state.signUpForm) ? props.location.state.signUpForm :
         {
             name: '',
             slug: '',
