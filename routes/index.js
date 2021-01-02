@@ -1,10 +1,14 @@
 const router = require('express').Router();
 const path = require('path')
+
+const app = require('./app')
 // const routeName = require('./routeLocation)
 
 router.get('/hello',async (req,res,next)=> {
     res.status(200).json({message:"The frontend is connected to backend"})
 })
+
+router.use('/',app)
 // router.use('route',routeName)
 
 if(process.env.NODE_ENV ==="production"){
