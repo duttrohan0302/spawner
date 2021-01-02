@@ -1,6 +1,4 @@
-/**
- * Function to slugify string
- */
+
 module.exports.slugify =  (string) => {
 
     // console.log(string);

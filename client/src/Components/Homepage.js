@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { slugify } from "../Utils/slugify";
+import { slugify } from "./../Utils/slugify";
 import {history} from '../Helpers';
 
 const Homepage = (props) => {
