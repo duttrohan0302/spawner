@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "dev": "nodemon server.js",
     "app": "concurrently \"nodemon server.js\" \"cd client && npm start\""
   },
