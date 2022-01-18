@@ -1,4 +1,5 @@
 node_modules/
 .env
+client/.eslintcache
 client/node_modules/
 heroku-personals.txt

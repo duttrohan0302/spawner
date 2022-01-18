@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.1",
+    "god": "file:..",
     "history": "^4.10.1",
     "jwt-decode": "^3.1.2",
     "prop-types": "^15.7.2",

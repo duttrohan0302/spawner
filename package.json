@@ -7,10 +7,12 @@
     "node": "12.x"
   },
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
-    "dev": "nodemon server.js",
-    "app": "concurrently \"nodemon server.js\" \"cd client && npm start\""
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",

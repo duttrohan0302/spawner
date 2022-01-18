@@ -16,7 +16,7 @@ exports.findOne = async function (Model, findBy, value) {
         const obj = {}
         obj[findBy] = value
         console.log(obj)
-        const data = await Model.findOne({[findBy]:value})
+        const data = await Model.find(obj)
 
         return data;
 

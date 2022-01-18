@@ -98,6 +98,9 @@ exports.schemaMiddleware = async function(req,res,next) {
             // req[model.name.charAt(0).toUpperCase()+model.name.slice(1)+"Schema"] = new mongooseApp.Schema(schemaObj)
             // req[model.name.charAt(0).toUpperCase()+model.name.slice(1)+"Schema"].plugin(require('mongoose-autopopulate'))
             req.models[model.name.charAt(0).toUpperCase()+model.name.slice(1)] = mongoose2.model(model.name,TempSchema)
+            if(index===appSchema.length-1){
+                console.log(req.models)
+            }
             // req.models[model.name.charAt(0).toUpperCase()+model.name.slice(1)] = mongoose2.model(model.name,req[model.name.charAt(0).toUpperCase()+model.name.slice(1)+"Schema"],model.name)
             // console.log("=>",model.name,"=> ",TempSchema)
         })

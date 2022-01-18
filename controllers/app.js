@@ -15,6 +15,7 @@ exports.create = async function(req,res, next) {
     // if(!isValid) {
         // return res.status(400).json(errors);
     // }
+    const errors = {}
     const newApp = {
         name: req.body.name,
         email: req.body.email,
@@ -33,8 +34,8 @@ exports.create = async function(req,res, next) {
         errors.slug = "Slug already exists, please change your slug";
 
         res.status(409).json(errors)
-    } catch (errors) {
-        return res.status(400).json(errors);
+    } catch (err) {
+        return res.status(400).json(err);
     }
 
 }
@@ -43,7 +44,7 @@ exports.get = async function(req,res,next){
 
     try{
         const model = req.params.model;
-        const number = req.params.number;
+        const number = req.params.number || 10;
         const Model = req.models[model.charAt(0).toUpperCase()+model.slice(1)]
 
         if(number==="all" || number==="many"){
@@ -71,7 +72,9 @@ exports.post = async function(req,res,next){
         const model = req.params.model;
         const object = req.body.object;
         const Model = req.models[model.charAt(0).toUpperCase()+model.slice(1)]
+        console.log(object)
         const data = await TempAppService.create(Model,object)
+        console.log(data)
         // const newClass = await req.models.Class.create({name:"Class T"})
         // const student1 = await req.models.Student.create({name:"ST1",email:"st1@gmail.com",password:"12345678",phone:"9876543210",class:newClass._id});
 

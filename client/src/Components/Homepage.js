@@ -55,13 +55,13 @@ const Homepage = (props) => {
 
 
     return (
-        <div style={{ backgroundColor: '#B23CFD', height: '100vh' }}>
+        <div style={{ backgroundColor: '#B23CFD',minHeight:"100vh",overflowY:"hidden" }}>
             <div className="display-2">
                 <center>Hello, Welcome to GOD app</center>
             </div>
             <div className="container-fluid" style={{ paddingLeft: '50px', paddingRight: "50px" }}>
                 <div className="row">
-                    <div className="col-md-7" style={{ backgroundColor: '#00B74A', height: '80vh', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px'}}>
+                    <div className="col-md-7" style={{ backgroundColor: '#00B74A', minHeight: '80vh', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px'}}>
                         <div className="display-4">
                             <center>Create a new app</center>
                         </div>

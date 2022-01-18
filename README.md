@@ -15,5 +15,6 @@
   - Check configurations values
   - heroku config:get MONGODB_URI --app god-mern
   - heroku config:get NODE_ENV --app god-mern 
+
 ### Author 
 #### Rohan Dutt
