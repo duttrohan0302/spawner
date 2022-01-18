@@ -10,13 +10,13 @@ exports.findAll = async function (Model) {
 }
 
 
-exports.findOne = async function (Model, findBy, value) {
+exports.findNum = async function (Model, findBy, value,num) {
 
     try {
         const obj = {}
         obj[findBy] = value
         console.log(obj)
-        const data = await Model.find(obj)
+        const data = await Model.find(obj).limit(num)
 
         return data;
 
