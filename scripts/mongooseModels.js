@@ -2,7 +2,7 @@ exports.mongooseIndex = () => {
 
     return(`
         const mongoose = require('mongoose');
-        const URI = require('../config/index');
+        const {URI} = require('../config/index');
         
         // Connect to MongoDB
         mongoose

@@ -3,3 +3,5 @@ node_modules/
 client/.eslintcache
 client/node_modules/
 heroku-personals.txt
+apps/
+client/.eslintcache

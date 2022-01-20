@@ -2,9 +2,13 @@ exports.configIndex = (db) => {
     const str = `const dbUser = process.env.MONGO_USERNAME;
     const dbPassword = process.env.MONGO_PASSWORD;
     const dbName = ${db ? `'${db}'` : 'process.env.DB_NAME'}  ;
-
+    const secretOrKey = process.env.SECRETORKEY || '123456'
     const MONGODB_URI = \`mongodb+srv://\${dbUser}:\${dbPassword}@devconnector.wws0c.mongodb.net/\${dbName}?retryWrites=true&w=majority\`;
-    module.exports = MONGODB_URI;
+    module.exports = 
+    {
+      URI:MONGODB_URI,
+      secretOrKey
+    }
     `
 
     return str
@@ -34,9 +38,12 @@ exports.packageJSON = (appName,author,email) => {
           "cors": "",
           "dotenv": "",
           "express": "",
+          "jsonwebtoken": "",
           "mongoose": "",
           "mongoose-autopopulate": "",
-          "nodemon": ""
+          "nodemon": "",
+          "passport": "",
+          "passport-jwt": ""
         }
       }`
 
@@ -50,7 +57,9 @@ exports.createEnv = (db) => {
 `MONGO_USERNAME=
 MONGO_PASSWORD=
 DB_NAME=${db}
-NODE_ENV=development`
+NODE_ENV=development
+SECRETORKEY=
+PORT=5001`
   )
 }
 
@@ -86,6 +95,7 @@ Create a .env file and add the following values
   MONGO_PASSWORD=
   DB_NAME=${appName}
   NODE_ENV=development
+  SECRETORKEY=
 </pre>
 
 ### Installing the dependencies

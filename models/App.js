@@ -19,12 +19,18 @@ const AppSchema = new Schema({
     type: String,
     required: true,
   },  
+  // One of the schema's can have an auth functionality, i.e. Passport JWT auth and password encryption
   appSchema:
     [
       {
         name: {
           type: String,
           required: true
+        },
+        isAuth: {
+          type: Boolean,
+          required: false,
+          default: false
         },
         attributes: [
           {

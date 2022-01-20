@@ -13,6 +13,7 @@ const { writeToFile } = require('./../scripts/writeToFile')
 const { runFormat } = require('./../scripts/runFormat')
 const { mainIndex } = require('./../scripts/mainIndex')
 const { index : routesIndex,app : routesApp, controllers: controllersApp, services: servicesApp } = require('./../scripts/routesData')
+const { middlewares : middlewareSetup,updateRoutesData, updateControllersData } = require('./../scripts/jwt')
 const { baseTextMongoose, mongooseIndex } = require('./../scripts/mongooseModels');
 const { configIndex,packageJSON,createEnv,createReadme,createGitIgnore } = require('../scripts/baseFiles');
 
@@ -29,7 +30,7 @@ const createAppZip = async (app) =>{
         let modelNames = []
 
         appSchema.forEach((model,index)=> {
-            const { attributes } = model;
+            const { attributes,isAuth } = model;
             const schemaObj={}
             attributes.forEach((attribute,indexAttribute)=>{
                 const newAttribute = returnAttribute(attribute)
@@ -57,9 +58,29 @@ const createAppZip = async (app) =>{
                 await writeToFile(`apps/${appName}/controllers/`,model.name+'.js',controllersApp(model.name))
                 await writeToFile(`apps/${appName}/services/`,model.name+'.js',servicesApp(model.name))
 
-                await runFormat()
+                if(isAuth){
+                    await writeToFile(`apps/${appName}/middlewares/`,`passport${capitalize(model.name)}.js`,middlewareSetup(model.name))
+                    // writeToFile(`apps/${appName}/routes/`,model.name+'.js',updateRoutes(`apps/${appName}/routes/`,model.name))
+                    const routeData = await updateRoutesData(`apps/${appName}/routes/`,model.name)
+                    await writeToFile(`apps/${appName}/routes/`,model.name+'.js',routeData)
+
+                    const controllerData = await updateControllersData(`apps/${appName}/controllers/`,model.name)
+                    await writeToFile(`apps/${appName}/controllers/`,model.name+'.js',controllerData)
+
+                    // await writeToFile(`apps/${appName}/controllers/`,model.name+'.js',updateControllers(model.name))
+                    // await writeToFile(`apps/${appName}/services/`,model.name+'.js',updateServices(model.name))
+                }
+                // if(index===appSchema.length-1){
+                    // await runFormat()
+                    // console.log("All done")
+                // }
             };
-            writeF()
+            writeF().then(async()=>{
+                // if(index===appSchema.length-1){
+                    await runFormat()
+                    console.log("All done")
+                // }
+            })
         })
     }catch(err){
         console.log(err)
