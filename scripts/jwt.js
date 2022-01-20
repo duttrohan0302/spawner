@@ -46,8 +46,8 @@ exports.updateRoutesData = async (dir,modelName) => {
     const passport = require("passport");
     require("./../middlewares/passport${capitalize(modelName)}")(passport);
 
-    //Login route
-    router.post('/${modelName}/login',${capitalize(modelName)}Controller.login);
+    //Authenticate route
+    router.post('/${modelName}/authenticate',${capitalize(modelName)}Controller.authenticate);
 
     // Get the current ${modelName} detail
     // To check the ${modelName} auth
@@ -79,8 +79,8 @@ exports.updateControllersData = async (dir,modelName) => {
 
         const extraLines = `
         
-        //Login controller
-        exports.login = async function(req, res, next) {
+        //Authentication controller
+        exports.authenticate = async function(req, res, next) {
             const errors = {}
             const { email, password } = req.body;
             try {

@@ -42,7 +42,7 @@ const createAppZip = async (app) =>{
                     await writeToFile(`apps/${appName}/`,'package.json',packageJSON(appName,app.name,app.email))
                     await writeToFile(`apps/${appName}/`,'.env',createEnv(appName))
                     await writeToFile(`apps/${appName}/`,'.gitignore',createGitIgnore())
-                    await writeToFile(`apps/${appName}/`,'README.md',createReadme(appName,app.name,app.email))
+                    await writeToFile(`apps/${appName}/`,'README.md',createReadme(appName,app.name,app.email,app))
 
                     await writeToFile(`apps/${appName}/`,'index.js',mainIndex())
 
@@ -60,30 +60,23 @@ const createAppZip = async (app) =>{
 
                 if(isAuth){
                     await writeToFile(`apps/${appName}/middlewares/`,`passport${capitalize(model.name)}.js`,middlewareSetup(model.name))
-                    // writeToFile(`apps/${appName}/routes/`,model.name+'.js',updateRoutes(`apps/${appName}/routes/`,model.name))
+
                     const routeData = await updateRoutesData(`apps/${appName}/routes/`,model.name)
                     await writeToFile(`apps/${appName}/routes/`,model.name+'.js',routeData)
 
                     const controllerData = await updateControllersData(`apps/${appName}/controllers/`,model.name)
                     await writeToFile(`apps/${appName}/controllers/`,model.name+'.js',controllerData)
 
-                    // await writeToFile(`apps/${appName}/controllers/`,model.name+'.js',updateControllers(model.name))
-                    // await writeToFile(`apps/${appName}/services/`,model.name+'.js',updateServices(model.name))
                 }
-                // if(index===appSchema.length-1){
-                    // await runFormat()
-                    // console.log("All done")
-                // }
             };
             writeF().then(async()=>{
-                // if(index===appSchema.length-1){
                     await runFormat()
                     console.log("All done")
-                // }
             })
         })
     }catch(err){
         console.log(err)
+        return(err)
     }
 
 
@@ -109,7 +102,6 @@ exports.create = async function(req,res, next) {
         if(!app) {
             newApp.password = await hashPassword(newApp.password); 
             const createdApp = await AppService.create(newApp)
-
             await createAppZip(createdApp)
             return res.status(200).json(createdApp)
         }

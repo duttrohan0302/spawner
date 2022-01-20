@@ -1,3 +1,7 @@
+function capitalize(s){
+  return s[0].toUpperCase() + s.slice(1);
+}
+
 exports.configIndex = (db) => {
     const str = `const dbUser = process.env.MONGO_USERNAME;
     const dbPassword = process.env.MONGO_PASSWORD;
@@ -78,7 +82,7 @@ test/*.log
   )
 }
 
-exports.createReadme = (appName,author,email) =>{
+exports.createReadme = (appName,author,email,app) =>{
   return(
 `# The ${appName} backend app
 ## Complete with all CRUD functionalities, created by ${author}(${email})
@@ -107,6 +111,71 @@ Create a .env file and add the following values
 <pre>
   npm run dev
 </pre>
+
+## Routes
+
+${app.appSchema.map(model=>
+  `### ${capitalize(model.name)} Routes
+
+  1. Create ${model.name} route
+  <pre>
+    @type POST
+    @route /${model.name}
+    @desc Create a ${model.name}
+    @access Public
+    @Fields Required -${model.attributes.map(attri=>` ${attri.name}`).join(",")} in body
+  </pre>
+
+  2. Get ${model.name} route
+  <pre>
+    @type GET
+    @route /${model.name}/all or /${model.name}/?findBy=var1&value=var2
+    @desc Get ${model.name}s
+    @access Public
+    @Fields Required - var1 can be ${model.attributes.map(attri=>` ${attri.name}`).join(",")} and var2 is the value
+  </pre>
+
+  3. Update ${model.name} route
+  <pre>
+    @type PATCH
+    @route /${model.name}/:id
+    @desc Update a particular ${model.name}
+    @access Public
+    @Fields Required - id in url path params and send details to be updated in body
+  </pre>
+
+  4. Delete ${model.name} route
+  <pre>
+    @type DELETE
+    @route /${model.name}/:id
+    @desc Delete a particular ${model.name}
+    @access Public
+    @Fields Required - id in url path params
+  </pre>
+
+  ${model.isAuth ? 
+  `5. Login/Authenticate ${model.name} route
+  <pre>
+    @type POST
+    @route /${model.name}/authenticate
+    @desc Authenticate a particular ${model.name}
+    @access Private
+    @Fields Required - email and password in body
+  </pre>
+
+  6. Get current ${model.name} route
+  <pre>
+    @type GET
+    @route /${model.name}/current
+    @desc Get current ${model.name} details
+    @access Private
+    @Fields Required - Send Bearer token in Authorization Header
+  </pre>
+  ` : ""}
+  `
+  
+).join("")}
+
 `    
   )
 }
