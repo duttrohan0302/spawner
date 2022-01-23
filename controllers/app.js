@@ -31,6 +31,61 @@ const createZip = async (name) => {
 
     console.log("Zip done")
 }
+
+const appFolderBetter = async(app) => {
+
+    const { appSchema } = app
+    const appName = app.slug
+    let modelNames = []
+    let index=0;
+
+    await writeToFile(`apps/${appName}/`,'package.json',packageJSON(appName,app.name,app.email))
+    await writeToFile(`apps/${appName}/`,'.env',createEnv(appName))
+    await writeToFile(`apps/${appName}/`,'.gitignore',createGitIgnore())
+    await writeToFile(`apps/${appName}/`,'README.md',createReadme(appName,app.name,app.email,app))
+
+    await writeToFile(`apps/${appName}/`,'index.js',mainIndex())
+
+    await writeToFile(`apps/${appName}/config/`,'index.js',configIndex(appName))
+    await writeToFile(`apps/${appName}/models/`,'index.js',mongooseIndex()) 
+
+    while(index<appSchema.length){
+
+        const model = appSchema[index]
+        const { attributes,isAuth } = model;
+
+        const schemaObj={}
+        attributes.forEach((attribute,indexAttribute)=>{
+            const newAttribute = returnAttribute(attribute)
+            schemaObj[attribute.name] = newAttribute
+        })
+        modelNames.push(model.name)
+        await writeToFile(`apps/${appName}/models/`,capitalize(model.name+'.js'),baseTextMongoose(model.name,JSON.stringify(schemaObj)))
+        await writeToFile(`apps/${appName}/routes/`,model.name+'.js',routesApp(model.name))
+        await writeToFile(`apps/${appName}/controllers/`,model.name+'.js',controllersApp(model.name))
+        await writeToFile(`apps/${appName}/services/`,model.name+'.js',servicesApp(model.name))
+
+
+        if(isAuth){
+            await writeToFile(`apps/${appName}/middlewares/`,`passport${capitalize(model.name)}.js`,middlewareSetup(model.name))
+
+            const routeData = await updateRoutesData(`apps/${appName}/routes/`,model.name)
+            await writeToFile(`apps/${appName}/routes/`,model.name+'.js',routeData)
+
+            const controllerData = await updateControllersData(`apps/${appName}/controllers/`,model.name)
+            await writeToFile(`apps/${appName}/controllers/`,model.name+'.js',controllerData)
+
+        }
+        index++;
+
+    }
+    if(index==appSchema.length){
+        await writeToFile(`apps/${appName}/routes/`,'index.js',routesIndex(modelNames))
+        await runFormat()
+        await createZip(appName)
+        console.log("All done from my side")
+    }
+}
 const createAppFolder = async (app) =>{
 
     try{
@@ -114,8 +169,8 @@ exports.create = async function(req,res, next) {
         if(!app) {
             newApp.password = await hashPassword(newApp.password); 
             const createdApp = await AppService.create(newApp)
-            await createAppFolder(createdApp)
-            // const outputFilePath = `${__dirname}/../zips/${newApp.slug}.zip`
+            // await createAppFolder(createdApp)
+            await appFolderBetter(createdApp)
 
             return res.status(200).json(createdApp)
         }

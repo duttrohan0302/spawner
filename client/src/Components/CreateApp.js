@@ -66,7 +66,7 @@ const CreateApp = (props) => {
       return null
     })
     console.log(form)
-    
+    setSignUpForm(form)
     try{
 
       const data = await axios.post('/app',form)
@@ -77,6 +77,8 @@ const CreateApp = (props) => {
           if(tryRequire(`zips/${data.data.slug}.zip`)){
             clearInterval(checkInterval)
             setShowDownloadLink(true)
+            window.scrollTo(0,0)
+            store.dispatch(setAlert("Your backend app has been created successfully. Click on the download button to get it now.","success"))
           }
         }
         const checkInterval = setInterval(showLinkCheck,2000)
@@ -91,283 +93,7 @@ const CreateApp = (props) => {
   }
 
 
-  const setForm = () => {
-    const form = [
-      {
-        "isAuth": "true",
-        "name": "user7",
-        "attributes": [
-            {
-                "name": "name",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "email",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "password",
-                "type": "String",
-                "ref": "0",
-                "required": "true"
-            },
-            {
-                "name": "phone",
-                "type": "Number",
-                "ref": "",
-                "required": ""
-            }
-        ]
-    },
-      {
-        "isAuth": "true",
-        "name": "user6",
-        "attributes": [
-            {
-                "name": "name",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "email",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "password",
-                "type": "String",
-                "ref": "0",
-                "required": "true"
-            },
-            {
-                "name": "phone",
-                "type": "Number",
-                "ref": "",
-                "required": ""
-            }
-        ]
-    },
-      {
-        "isAuth": "true",
-        "name": "user5",
-        "attributes": [
-            {
-                "name": "name",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "email",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "password",
-                "type": "String",
-                "ref": "0",
-                "required": "true"
-            },
-            {
-                "name": "phone",
-                "type": "Number",
-                "ref": "",
-                "required": ""
-            }
-        ]
-    },
-      {
-        "isAuth": "true",
-        "name": "user4",
-        "attributes": [
-            {
-                "name": "name",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "email",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "password",
-                "type": "String",
-                "ref": "0",
-                "required": "true"
-            },
-            {
-                "name": "phone",
-                "type": "Number",
-                "ref": "",
-                "required": ""
-            }
-        ]
-    },
-      {
-        "isAuth": "true",
-        "name": "user3",
-        "attributes": [
-            {
-                "name": "name",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "email",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "password",
-                "type": "String",
-                "ref": "0",
-                "required": "true"
-            },
-            {
-                "name": "phone",
-                "type": "Number",
-                "ref": "",
-                "required": ""
-            }
-        ]
-    },
-      {
-        "isAuth": "true",
-        "name": "user2",
-        "attributes": [
-            {
-                "name": "name",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "email",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "password",
-                "type": "String",
-                "ref": "0",
-                "required": "true"
-            },
-            {
-                "name": "phone",
-                "type": "Number",
-                "ref": "",
-                "required": ""
-            }
-        ]
-    },
-      {
-        "isAuth": "true",
-        "name": "user1",
-        "attributes": [
-            {
-                "name": "name",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "email",
-                "type": "String",
-                "ref": "",
-                "required": "true"
-            },
-            {
-                "name": "password",
-                "type": "String",
-                "ref": "0",
-                "required": "true"
-            },
-            {
-                "name": "phone",
-                "type": "Number",
-                "ref": "",
-                "required": ""
-            }
-        ]
-    },
-      {
-          "isAuth": "true",
-          "name": "user",
-          "attributes": [
-              {
-                  "name": "name",
-                  "type": "String",
-                  "ref": "",
-                  "required": "true"
-              },
-              {
-                  "name": "email",
-                  "type": "String",
-                  "ref": "",
-                  "required": "true"
-              },
-              {
-                  "name": "password",
-                  "type": "String",
-                  "ref": "0",
-                  "required": "true"
-              },
-              {
-                  "name": "phone",
-                  "type": "Number",
-                  "ref": "",
-                  "required": ""
-              }
-          ]
-      },
-      {
-          "isAuth": false,
-          "name": "district",
-          "attributes": [
-              {
-                  "name": "state_id",
-                  "type": "ObjectId",
-                  "ref": "state",
-                  "required": "true"
-              },
-              {
-                  "name": "district_name",
-                  "type": "String",
-                  "ref": "",
-                  "required": "true"
-              }
-          ]
-      },
-      {
-          "isAuth": false,
-          "name": "state",
-          "attributes": [
-              {
-                  "name": "state_name",
-                  "type": "String",
-                  "ref": "0",
-                  "required": "true"
-              }
-          ]
-      }
-  ]
 
-  // setSignUpForm({name:"abcd",email:"abcd@gmail.com",slug:`da${Math.floor(Math.random()*100)}`,password:"123456",schema:form})
-  setSignUpForm({name:"abcd",email:"abcd@gmail.com",slug:`da26`,password:"123456",schema:form})
-  }
   useEffect(() => {
     if (props.location && props.location.state) {
       if (!props.location.state || !props.location.state.signUpForm || props.location.state.signUpForm.name === "") {
@@ -381,7 +107,6 @@ const CreateApp = (props) => {
         password: props.location.state.signUpForm.password,
       });
     }
-    setForm()
 
   }, [props.location, props.location.state]);
 
@@ -429,6 +154,7 @@ const CreateApp = (props) => {
 
     const tempSchema = signUpForm.schema;
     if(!tempSchema[modelIndex].name){
+      window.scroll(0,0)
       store.dispatch(setAlert("Please enter model name first","danger",3000))
     }else{
       if(!tempSchema[modelIndex].attributes) {
@@ -530,6 +256,7 @@ const CreateApp = (props) => {
                     showDownloadLink ?
                     <Col>
                       <Button
+                        color="info"
                         style={{
                           fontSize: "20px",
                           width: "100%",
