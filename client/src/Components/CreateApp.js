@@ -65,14 +65,12 @@ const CreateApp = (props) => {
 
       return null
     })
-    console.log(form)
     setSignUpForm(form)
     try{
 
       const data = await axios.post('/app',form)
 
       if(data.data){
-        console.log("here")
         const showLinkCheck = () =>{
           if(tryRequire(`zips/${data.data.slug}.zip`)){
             clearInterval(checkInterval)
@@ -85,7 +83,6 @@ const CreateApp = (props) => {
 
 
       }
-      console.log(data)
     }catch(err){
       console.log(err)
     }
@@ -172,7 +169,6 @@ const CreateApp = (props) => {
     }
 
   };
-  console.log(signUpForm.slug)
   return (
     <div
       style={{ backgroundColor: "#B23CFD", padding: "20px", minHeight: "100vh" }}

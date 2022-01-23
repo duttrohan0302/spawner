@@ -13,10 +13,6 @@ const Homepage = (props) => {
             email: '',
             password: ''
         })
-    const [signInForm, setSignInForm] = useState({
-        slug: '',
-        password: ''
-    })
 
     const onChangeSignUp = (e) => {
         setSignUpForm(
@@ -26,32 +22,13 @@ const Homepage = (props) => {
             }
         )
     }
-    const onChangeSignIn = (e) => {
-        setSignInForm(
-            {
-                ...signInForm,
-                [e.target.name]: e.target.value
-            }
-        )
-    }
 
     const onSubmitSignUp = (e) => {
         e.preventDefault();
         console.log(signUpForm)
         history.push(`/continue-app`,{signUpForm:signUpForm})
-        // history.push({
-        //     pathname:`/continue/${signUpForm.slug}`,
-        //     state: {signUpForm:signUpForm}
-        // })
+
     }
-
-    const onSubmitSignIn = (e) => {
-        e.preventDefault();
-        console.log(signInForm)
-    }
-
-
-
 
     return (
         <div style={{ backgroundColor: '#B23CFD',overflowY:"hidden",minHeight:"100vh" }}>

@@ -25,7 +25,6 @@ function capitalize(s){
 const createZip = async (name) => {
     const downloadName = `${name}.zip`;
     const zip = new AdmZip();
-    console.log(__dirname)
     zip.addLocalFolder(`${__dirname}/../apps/${name}/`)
     zip.writeZip(`${__dirname}/../client/public/zips/${downloadName}`)
 
@@ -83,7 +82,7 @@ const appFolderBetter = async(app) => {
         await writeToFile(`apps/${appName}/routes/`,'index.js',routesIndex(modelNames))
         await runFormat()
         await createZip(appName)
-        console.log("All done from my side")
+        console.log("All files created and zip called")
     }
 }
 const createAppFolder = async (app) =>{
@@ -136,7 +135,6 @@ const createAppFolder = async (app) =>{
             writeF()
             .then(async()=>{
                     await runFormat()
-                    console.log("All done")
             }).then(async ()=>{
                 if(index===appSchema.length-1){
                     setTimeout(()=>createZip(app.slug),2000)
@@ -216,9 +214,7 @@ exports.post = async function(req,res,next){
         const model = req.params.model;
         const object = req.body.object;
         const Model = req.models[model.charAt(0).toUpperCase()+model.slice(1)]
-        console.log(object)
         const data = await TempAppService.create(Model,object)
-        console.log(data)
         return res.status(200).json(data)
     }catch(errors){
         console.log(errors)

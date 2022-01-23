@@ -59,7 +59,6 @@ const CreateApp = (props) => {
 
   const addAttribute = (e, name) => {
     e.preventDefault();
-    console.log("Called");
 
     const elementsIndex = signUpForm.appSchema.findIndex(
       (model) => model.name === name

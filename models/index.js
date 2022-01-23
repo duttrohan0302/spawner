@@ -8,8 +8,6 @@ mongoose
     	useUnifiedTopology: true,
     	useFindAndModify: false,
 	})
-	// .then(() => console.log("Mongoose Connected"))
-	// .catch((err) => console.log(err));
 
 // When successfully connected
 mongoose.connection.on('connected', () => {
