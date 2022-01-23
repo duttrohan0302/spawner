@@ -29,13 +29,14 @@ const CreateApp = (props) => {
   });
   const [showDownloadLink,setShowDownloadLink] = useState(false)
 
-  const tryRequire = (path) => {
-    try {
-     return require(`../../public/${path}`);
-    } catch (err) {
-     return null;
-    }
-  };
+  // const tryRequire = (path) => {
+  //   try {
+  //   //  return require(`../../public/${path}`);
+  //    return true
+  //   } catch (err) {
+  //    return null;
+  //   }
+  // };
   const saveForm = async () => {
     let form = signUpForm
 
@@ -47,7 +48,7 @@ const CreateApp = (props) => {
         model.attributes.map(attribute=>{
 
           if(attribute.name){
-            if(attribute.type==="0"){
+            if(!attribute.type || attribute.type==="0"){
               attribute.type="String"
             }
             if(!attribute.ref || attribute.ref==="0"){
@@ -65,21 +66,22 @@ const CreateApp = (props) => {
 
       return null
     })
+    console.log(form)
     setSignUpForm(form)
     try{
 
       const data = await axios.post('/app',form)
 
       if(data.data){
-        const showLinkCheck = () =>{
-          if(tryRequire(`zips/${data.data.slug}.zip`)){
-            clearInterval(checkInterval)
+        // const showLinkCheck = () =>{
+          // if(tryRequire(`zips/${data.data.slug}.zip`)){
+            // clearInterval(checkInterval)
             setShowDownloadLink(true)
             window.scrollTo(0,0)
             store.dispatch(setAlert("Your backend app has been created successfully. Click on the download button to get it now.","success"))
-          }
-        }
-        const checkInterval = setInterval(showLinkCheck,2000)
+          // }
+        // }
+        // const checkInterval = setInterval(showLinkCheck,2000)
 
 
       }

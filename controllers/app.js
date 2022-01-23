@@ -24,9 +24,10 @@ function capitalize(s){
 
 const createZip = async (name) => {
     const downloadName = `${name}.zip`;
+    const folderName = process.env.NODE_ENV==="production" ? "build" : "public"
     const zip = new AdmZip();
     zip.addLocalFolder(`${__dirname}/../apps/${name}/`)
-    zip.writeZip(`${__dirname}/../client/public/zips/${downloadName}`)
+    zip.writeZip(`${__dirname}/../client/${folderName}/zips/${downloadName}`)
 
     console.log("Zip done")
 }

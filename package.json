@@ -1,11 +1,8 @@
 {
-  "name": "god",
+  "name": "spawner",
   "version": "1.0.0",
-  "description": "a mern app which creates mern apps",
+  "description": "a mern app which creates backend apps",
   "main": "server.js",
-  "engines": {
-    "node": "12.x"
-  },
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
@@ -15,19 +12,12 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/duttrohan0302/god.git"
-  },
   "keywords": [
-    "god"
+    "spawn",
+    "spawner"
   ],
   "author": "Rohan Dutt",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/duttrohan0302/god/issues"
-  },
-  "homepage": "https://github.com/duttrohan0302/god#readme",
   "dependencies": {
     "adm-zip": "^0.5.6",
     "bcryptjs": "^2.4.3",
