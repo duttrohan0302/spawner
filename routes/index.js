@@ -1,15 +1,14 @@
 const router = require('express').Router();
 const path = require('path')
-
+const cors = require('cors')
 const app = require('./app')
-// const routeName = require('./routeLocation)
 
 router.get('/hello',async (req,res,next)=> {
     res.status(200).json({message:"The frontend is connected to backend"})
 })
 
+app.use(cors())
 router.use('/',app)
-// router.use('route',routeName)
 
 if(process.env.NODE_ENV ==="production"){
     router.get('*',function(req, res) {

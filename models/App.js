@@ -52,17 +52,6 @@ const AppSchema = new Schema({
               default: false
             }
           }
-        ],
-        relations: [
-          {
-            with: {
-              type: String,
-            },
-            type: {
-              type: String,
-              enum: ['one to one','one to many','many to one','many to many']
-            }
-          }
         ]
       }
     ],

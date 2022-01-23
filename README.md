@@ -1,23 +1,15 @@
 # Spawner
 ### Ultimate app which can create any backend app
 
-
-
-
-### Heroku Commands
+### Create a .env file in the root folder
 <pre>
-  $ heroku create god-mern  
-  $ heroku config:set MONGODB_URI="mongodb+srv://${dbUser}:${dbPassword}@devconnector.wws0c.mongodb.net/${dbName}?retryWrites=true&w=majority" -a god-mern  
-  $ heroku config:set NODE_ENV="production" -a god-mern  
-  $ heroku config:set MONGO_USERNAME="yourUsernmae -a god-mern  
-  $ heroku config:set MONGO_PASSWORD="yourPassword" -a god-mern  
-  $ heroku config:set DB_NAME=god -a god-mern  
-
-  - Check configurations values  
-  - heroku config:get MONGODB_URI --app god-mern  
-  - heroku config:get NODE_ENV --app god-mern   
-
+MONGOURI= < Your MongoDB URI >
 </pre>
+
+### How to create a new app, both via frontend and backend
+
+
+### Add Postman collections
 
 ## Author 
 ### Rohan Dutt

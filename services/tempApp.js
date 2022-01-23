@@ -36,10 +36,11 @@ exports.create = async function (Model, object) {
     }
 }
 
-exports.update = async function (Model, object, findBy, value) {
+exports.update = async function (Model, object, id) {
     try {
         console.log("here")
-        const data = await Model.findOneAndUpdate({ [findBy]: value }, object, { new: true, omitUndefined: true })
+        // const data = await Model.findOneAndUpdate({[findBy]:value}, object, { new: true, omitUndefined: true })
+        const data = await Model.findByIdAndUpdate(id, object, { new: true, omitUndefined: true })
         return data;
 
     } catch (e) {
@@ -47,9 +48,10 @@ exports.update = async function (Model, object, findBy, value) {
     }
 }
 
-exports.delete = async function (Model, findBy, value) {
+exports.delete = async function (Model, id) {
     try {
-        const data = await Model.findOneAndDelete({[findBy]:value})
+        // const data = await Model.findOneAndDelete({[findBy]:value})
+        const data = await Model.findByIdAndDelete(id)
         return data;
 
     } catch (e) {

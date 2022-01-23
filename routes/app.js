@@ -12,8 +12,8 @@ router.get('/myapp/:appSlug/:model/:number',AppMiddleware.schemaMiddleware, AppC
 
 router.post('/myapp/:appSlug/:model',AppMiddleware.schemaMiddleware, AppController.post)
 
-router.patch('/myapp/:appSlug/:model/',AppMiddleware.schemaMiddleware, AppController.patch)
+router.patch('/myapp/:appSlug/:model/:id',AppMiddleware.schemaMiddleware, AppController.patch)
 
-router.delete('/myapp/:appSlug/:model/',AppMiddleware.schemaMiddleware, AppController.delete)
+router.delete('/myapp/:appSlug/:model/:id',AppMiddleware.schemaMiddleware, AppController.delete)
 
 module.exports = router;

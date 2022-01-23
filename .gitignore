@@ -5,3 +5,4 @@ client/node_modules/
 heroku-personals.txt
 apps/
 client/.eslintcache
+zips/

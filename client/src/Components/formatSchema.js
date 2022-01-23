@@ -119,7 +119,7 @@
 // Json
 
 
-const appSchema = 
+const schema = 
     [
         {
             name: "Name of the model",

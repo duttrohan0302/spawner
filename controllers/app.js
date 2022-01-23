@@ -3,7 +3,7 @@ const AppService = require('./../services/app');
 const TempAppService = require('./../services/tempApp');
 const bcrypt = require("bcryptjs");
 const mongooseApp = require('mongoose')
-// mongooseApp.set('debug',true)
+var AdmZip = require("adm-zip");
 mongooseApp.pluralize(null);
 
 const {returnAttribute} = require('./../middlewares/schemaMiddleware')
@@ -22,7 +22,16 @@ function capitalize(s){
     return s[0].toUpperCase() + s.slice(1);
 }
 
-const createAppZip = async (app) =>{
+const createZip = async (name) => {
+    const downloadName = `${name}.zip`;
+    const zip = new AdmZip();
+    console.log(__dirname)
+    zip.addLocalFolder(`${__dirname}/../apps/${name}/`)
+    zip.writeZip(`${__dirname}/../client/public/zips/${downloadName}`)
+
+    console.log("Zip done")
+}
+const createAppFolder = async (app) =>{
 
     try{
         const { appSchema } = app
@@ -69,11 +78,19 @@ const createAppZip = async (app) =>{
 
                 }
             };
-            writeF().then(async()=>{
+            writeF()
+            .then(async()=>{
                     await runFormat()
                     console.log("All done")
-            })
+            }).then(async ()=>{
+                if(index===appSchema.length-1){
+                    setTimeout(()=>createZip(app.slug),2000)
+                }
+            }
+            )
         })
+        // await createZip(app.slug)
+
     }catch(err){
         console.log(err)
         return(err)
@@ -81,13 +98,8 @@ const createAppZip = async (app) =>{
 
 
 }
-
 exports.create = async function(req,res, next) {
 
-    // const { errors, isValid } = validateRegisterInput(req.body)
-    // if(!isValid) {
-        // return res.status(400).json(errors);
-    // }
     const errors = {}
     const newApp = {
         name: req.body.name,
@@ -102,13 +114,16 @@ exports.create = async function(req,res, next) {
         if(!app) {
             newApp.password = await hashPassword(newApp.password); 
             const createdApp = await AppService.create(newApp)
-            await createAppZip(createdApp)
+            await createAppFolder(createdApp)
+            // const outputFilePath = `${__dirname}/../zips/${newApp.slug}.zip`
+
             return res.status(200).json(createdApp)
         }
         errors.slug = "Slug already exists, please change your slug";
 
         res.status(409).json(errors)
     } catch (err) {
+        console.log(err)
         return res.status(400).json(err);
     }
 
@@ -149,15 +164,6 @@ exports.post = async function(req,res,next){
         console.log(object)
         const data = await TempAppService.create(Model,object)
         console.log(data)
-        // const newClass = await req.models.Class.create({name:"Class T"})
-        // const student1 = await req.models.Student.create({name:"ST1",email:"st1@gmail.com",password:"12345678",phone:"9876543210",class:newClass._id});
-
-        // const student2 = await req.models.Student.create({name:"ST2",email:"st2@gmail.com",password:"12345678",phone:"9876543210",class:newClass._id});
-        // const student3 = await req.models.Student.create({name:"ST3",email:"st3@gmail.com",password:"12345678",phone:"9876543210",class:newClass._id});
-        // const student4 = await req.models.Student.create({name:"ST4",email:"st4@gmail.com",password:"12345678",phone:"9876543210",class:newClass._id});
-        // const student5 = await req.models.Student.create({name:"ST5",email:"st5@gmail.com",password:"12345678",phone:"9876543210",class:newClass._id});
-        // const teacher = await req.models.Teacher.create({name:"Teacher 1",class:newClass._id,student:[student1._id,student2._id,student3._id,student4._id,student5._id]})
-        // return res.status(200).json(teacher)
         return res.status(200).json(data)
     }catch(errors){
         console.log(errors)
@@ -169,11 +175,13 @@ exports.patch = async function(req,res,next){
 
     try{
         const model = req.params.model;
-        const findBy = req.query.findBy;
-        const value = req.query.value;
+        // const findBy = req.query.findBy;
+        // const value = req.query.value;
         const object = req.body.object;
+        const id = req.params.id;
         const Model = req.models[model.charAt(0).toUpperCase()+model.slice(1)]
-        const data = await TempAppService.update(Model,object,findBy,value)
+        // const data = await TempAppService.update(Model,object,findBy,value)
+        const data = await TempAppService.update(Model,object,id)
 
         return res.status(200).json(data)
 
@@ -186,10 +194,12 @@ exports.delete = async function(req,res,next){
 
     try{
         const model = req.params.model;
-        const findBy = req.query.findBy;
-        const value = req.query.value;
+        const id = req.params.id;
+        // const findBy = req.query.findBy;
+        // const value = req.query.value;
         const Model = req.models[model.charAt(0).toUpperCase()+model.slice(1)]
-        const data = await TempAppService.delete(Model,findBy,value)
+        // const data = await TempAppService.delete(Model,findBy,value)
+        const data = await TempAppService.delete(Model,id)
 
         return res.status(200).json(data)
 

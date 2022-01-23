@@ -10,29 +10,369 @@ import {
   Col,
 } from "reactstrap";
 import { history } from "../Helpers";
+import { setAlert } from '../Actions/alertActions'
+import store from '../Helpers/store';
+import axios from 'axios';
+import {Link} from "react-router-dom"
 
 const CreateApp = (props) => {
+    if (!props.location.state || !props.location.state.signUpForm.email) {
+    history.push("/");
+  }
   const [signUpForm, setSignUpForm] = useState({
     name: "",
     slug: "",
     email: "",
     password: "",
-    appSchema: [
-      {
-        name: "",
-        attributes: [
-          {
-            name: "",
-            type: "",
-            ref: "",
-            required: "",
-          },
-        ],
-      },
+    schema: [
     ],
   });
+  const [showDownloadLink,setShowDownloadLink] = useState(false)
+
+  const tryRequire = (path) => {
+    try {
+     return require(`../../public/${path}`);
+    } catch (err) {
+     return null;
+    }
+  };
+  const saveForm = async () => {
+    let form = signUpForm
+
+    form.schema.map(model=>{
+      if(model.name){
+        if(!model.isAuth || model.isAuth==='isAuth'){
+          model.isAuth=false
+        }
+        model.attributes.map(attribute=>{
+
+          if(attribute.name){
+            if(attribute.type==="0"){
+              attribute.type="String"
+            }
+            if(!attribute.ref || attribute.ref==="0"){
+              attribute.ref=null
+            }
+            if(!attribute.required || attribute.required==="0"){
+              attribute.required=false
+            }
+            return attribute
+          }
+          return null
+        })
+        return model
+      }
+
+      return null
+    })
+    console.log(form)
+    
+    try{
+
+      const data = await axios.post('/app',form)
+
+      if(data.data){
+        console.log("here")
+        const showLinkCheck = () =>{
+          if(tryRequire(`zips/${data.data.slug}.zip`)){
+            clearInterval(checkInterval)
+            setShowDownloadLink(true)
+          }
+        }
+        const checkInterval = setInterval(showLinkCheck,2000)
+
+
+      }
+      console.log(data)
+    }catch(err){
+      console.log(err)
+    }
+
+  }
+
+
+  const setForm = () => {
+    const form = [
+      {
+        "isAuth": "true",
+        "name": "user7",
+        "attributes": [
+            {
+                "name": "name",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "email",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "password",
+                "type": "String",
+                "ref": "0",
+                "required": "true"
+            },
+            {
+                "name": "phone",
+                "type": "Number",
+                "ref": "",
+                "required": ""
+            }
+        ]
+    },
+      {
+        "isAuth": "true",
+        "name": "user6",
+        "attributes": [
+            {
+                "name": "name",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "email",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "password",
+                "type": "String",
+                "ref": "0",
+                "required": "true"
+            },
+            {
+                "name": "phone",
+                "type": "Number",
+                "ref": "",
+                "required": ""
+            }
+        ]
+    },
+      {
+        "isAuth": "true",
+        "name": "user5",
+        "attributes": [
+            {
+                "name": "name",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "email",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "password",
+                "type": "String",
+                "ref": "0",
+                "required": "true"
+            },
+            {
+                "name": "phone",
+                "type": "Number",
+                "ref": "",
+                "required": ""
+            }
+        ]
+    },
+      {
+        "isAuth": "true",
+        "name": "user4",
+        "attributes": [
+            {
+                "name": "name",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "email",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "password",
+                "type": "String",
+                "ref": "0",
+                "required": "true"
+            },
+            {
+                "name": "phone",
+                "type": "Number",
+                "ref": "",
+                "required": ""
+            }
+        ]
+    },
+      {
+        "isAuth": "true",
+        "name": "user3",
+        "attributes": [
+            {
+                "name": "name",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "email",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "password",
+                "type": "String",
+                "ref": "0",
+                "required": "true"
+            },
+            {
+                "name": "phone",
+                "type": "Number",
+                "ref": "",
+                "required": ""
+            }
+        ]
+    },
+      {
+        "isAuth": "true",
+        "name": "user2",
+        "attributes": [
+            {
+                "name": "name",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "email",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "password",
+                "type": "String",
+                "ref": "0",
+                "required": "true"
+            },
+            {
+                "name": "phone",
+                "type": "Number",
+                "ref": "",
+                "required": ""
+            }
+        ]
+    },
+      {
+        "isAuth": "true",
+        "name": "user1",
+        "attributes": [
+            {
+                "name": "name",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "email",
+                "type": "String",
+                "ref": "",
+                "required": "true"
+            },
+            {
+                "name": "password",
+                "type": "String",
+                "ref": "0",
+                "required": "true"
+            },
+            {
+                "name": "phone",
+                "type": "Number",
+                "ref": "",
+                "required": ""
+            }
+        ]
+    },
+      {
+          "isAuth": "true",
+          "name": "user",
+          "attributes": [
+              {
+                  "name": "name",
+                  "type": "String",
+                  "ref": "",
+                  "required": "true"
+              },
+              {
+                  "name": "email",
+                  "type": "String",
+                  "ref": "",
+                  "required": "true"
+              },
+              {
+                  "name": "password",
+                  "type": "String",
+                  "ref": "0",
+                  "required": "true"
+              },
+              {
+                  "name": "phone",
+                  "type": "Number",
+                  "ref": "",
+                  "required": ""
+              }
+          ]
+      },
+      {
+          "isAuth": false,
+          "name": "district",
+          "attributes": [
+              {
+                  "name": "state_id",
+                  "type": "ObjectId",
+                  "ref": "state",
+                  "required": "true"
+              },
+              {
+                  "name": "district_name",
+                  "type": "String",
+                  "ref": "",
+                  "required": "true"
+              }
+          ]
+      },
+      {
+          "isAuth": false,
+          "name": "state",
+          "attributes": [
+              {
+                  "name": "state_name",
+                  "type": "String",
+                  "ref": "0",
+                  "required": "true"
+              }
+          ]
+      }
+  ]
+
+  // setSignUpForm({name:"abcd",email:"abcd@gmail.com",slug:`da${Math.floor(Math.random()*100)}`,password:"123456",schema:form})
+  setSignUpForm({name:"abcd",email:"abcd@gmail.com",slug:`da26`,password:"123456",schema:form})
+  }
   useEffect(() => {
     if (props.location && props.location.state) {
+      if (!props.location.state || !props.location.state.signUpForm || props.location.state.signUpForm.name === "") {
+        history.push("/");
+      }
       setSignUpForm({
         ...signUpForm,
         name: props.location.state.signUpForm.name,
@@ -41,15 +381,18 @@ const CreateApp = (props) => {
         password: props.location.state.signUpForm.password,
       });
     }
-  }, []);
+    setForm()
+
+  }, [props.location, props.location.state]);
 
   const addModel = (e) => {
     e.preventDefault();
     setSignUpForm({
       ...signUpForm,
-      appSchema: [
-        ...signUpForm.appSchema,
+      schema: [
+        ...signUpForm.schema,
         {
+          isAuth: false,
           name: "",
           attributes: [],
         },
@@ -57,29 +400,56 @@ const CreateApp = (props) => {
     });
   };
 
-  const addAttribute = (e, name) => {
+  const updateModel = (e, index) => {
     e.preventDefault();
-    console.log("Called");
+    const tempSchema = signUpForm.schema;
+    tempSchema[index][e.target.name] = e.target.value;
+    setSignUpForm({ ...signUpForm, schema: tempSchema });
+  };
 
-    const elementsIndex = signUpForm.appSchema.findIndex(
-      (model) => model.name === name
-    );
-    let newArray = [...signUpForm.appSchema];
-    newArray[elementsIndex].attributes = [
-      ...newArray[elementsIndex].attributes,
-      {
+  const updateAttribute = (e, modelIndex,attributeIndex) => {
+    e.preventDefault();
+    const tempSchema = signUpForm.schema;
+    tempSchema[modelIndex].attributes[attributeIndex][e.target.name] = e.target.value
+    setSignUpForm({ ...signUpForm, schema: tempSchema });
+  };
+
+  const deleteModel = (modelIndex) => {
+    let tempSchema = signUpForm.schema;
+    tempSchema.splice(modelIndex,1)
+    setSignUpForm({ ...signUpForm, schema: tempSchema });
+  } 
+  const deleteAttribute = (modelIndex,attributeIndex) => {
+    let tempSchema = signUpForm.schema;
+    tempSchema[modelIndex].attributes.splice(attributeIndex,1)
+    setSignUpForm({ ...signUpForm, schema: tempSchema });
+  }
+  const addAttribute = (e, modelIndex) => {
+    e.preventDefault();
+
+    const tempSchema = signUpForm.schema;
+    if(!tempSchema[modelIndex].name){
+      store.dispatch(setAlert("Please enter model name first","danger",3000))
+    }else{
+      if(!tempSchema[modelIndex].attributes) {
+        tempSchema[modelIndex].attributes = []
+      }
+      tempSchema[modelIndex].attributes.push({
         name: "",
         type: "",
         ref: "",
-        required: "",
-      },
-    ];
+        required: ""
+      })
 
-    setSignUpForm({ ...signUpForm, appSchema: [...newArray] });
+  
+      setSignUpForm({ ...signUpForm, schema: tempSchema });
+    }
+
   };
+  console.log(signUpForm.slug)
   return (
     <div
-      style={{ backgroundColor: "#B23CFD", padding: "20px", height: "100vh" }}
+      style={{ backgroundColor: "#B23CFD", padding: "20px", minHeight: "100vh" }}
     >
       <div className="display-2">
         <center>Continue creating your application...</center>
@@ -87,9 +457,6 @@ const CreateApp = (props) => {
       <div
         className="container-fluid"
         style={{
-          paddingLeft: "50px",
-          paddingRight: "50px",
-          marginTop: "20px",
           overflowY: "auto",
         }}
       >
@@ -105,11 +472,13 @@ const CreateApp = (props) => {
           >
             <div className="display-4">
               <center>Create a new app</center>
+
             </div>
+
             <div className="signup-form">
               <Form>
                 <Row form>
-                  <Col md={4}>
+                  <Col >
                     <FormGroup>
                       <Label for="name" style={{ fontSize: "20px" }}>
                         App Name
@@ -119,16 +488,13 @@ const CreateApp = (props) => {
                         name="name"
                         value={signUpForm.name}
                         style={{
-                          padding: "20px",
-                          paddingTop: "30px",
-                          paddingBottom: "30px",
                           fontSize: "20px",
                         }}
                         disabled
                       />
                     </FormGroup>
                   </Col>
-                  <Col md={4}>
+                  <Col >
                     <FormGroup>
                       <Label for="slug" style={{ fontSize: "20px" }}>
                         App Slug
@@ -138,16 +504,13 @@ const CreateApp = (props) => {
                         name="slug"
                         value={signUpForm.slug}
                         style={{
-                          padding: "20px",
-                          paddingTop: "30px",
-                          paddingBottom: "30px",
                           fontSize: "20px",
                         }}
                         disabled
                       />
                     </FormGroup>
                   </Col>
-                  <Col md={4}>
+                  <Col >
                     <FormGroup>
                       <Label for="email" style={{ fontSize: "20px" }}>
                         Email
@@ -157,15 +520,28 @@ const CreateApp = (props) => {
                         name="email"
                         value={signUpForm.email}
                         style={{
-                          padding: "20px",
-                          paddingTop: "30px",
-                          paddingBottom: "30px",
                           fontSize: "20px",
                         }}
                         disabled
                       />
                     </FormGroup>
                   </Col>
+                  {
+                    showDownloadLink ?
+                    <Col>
+                      <Button
+                        style={{
+                          fontSize: "20px",
+                          width: "100%",
+                          marginTop:"38px"
+                        }}
+                        >
+                          <Link to={`zips/${signUpForm.slug}.zip`} target="_blank" style={{color:"white",textDecoration:"none"}} download>Download App</Link>
+                        </Button>
+                    </Col>
+                    :
+                    null
+                  }
                 </Row>
 
                 <center>
@@ -184,58 +560,88 @@ const CreateApp = (props) => {
                     </Button>
                   </div>
                 </center>
-                {/* {console.log(appSchema)} */}
                 <div>
-                  {signUpForm.appSchema &&
-                    signUpForm.appSchema.map((model, modelIndex) => (
-                      <div>
-                        <Row form key={modelIndex}>
-                          <Col md={9}>
+                  {signUpForm.schema &&
+                    signUpForm.schema.map((model, modelIndex) => (
+                      <div 
+                        key={modelIndex} 
+                        style={{
+                          backgroundColor:"seagreen", 
+                          padding:"10px",
+                          margin:"10px",
+                          borderRadius:"10px"
+                        }}
+                      >
+                        <Row form>
+                          <Col md={6}>
                             <FormGroup>
                               <Input
                                 type="text"
                                 name="name"
                                 placeholder="Model Name"
-                                // value={signUpForm.email}
+                                value={model.name}
+                                onChange={(e) => updateModel(e, modelIndex)}
                                 style={{
-                                  padding: "20px",
-                                  paddingTop: "30px",
-                                  paddingBottom: "30px",
                                   fontSize: "20px",
-                                  // width:"800px"
                                 }}
                               />
                             </FormGroup>
                           </Col>
-                          <Col md={3}>
+                          <Col md={2}>
+                            <FormGroup>
+                              <Input
+                                type="select"
+                                name="isAuth"
+                                id="isAuth"
+                                style={{
+                                  fontSize: "20px",
+                                }}
+                                onChange={(e) => updateModel(e, modelIndex)}
+                              >
+                                <option value="isAuth">Is Auth?</option>
+                                <option value={true}>True</option>
+                                <option value={false}>False</option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col md={2}>
                             <Button
-                              color="warning"
-                              onClick={(e) => addAttribute(e, "")}
+                              color="danger"
+                              onClick={() => deleteModel(modelIndex)}
                               style={{
                                 fontSize: "20px",
-                                // width:"400px",
-                                padding: "15px 50px",
-                                // borderTopLeftRadius:"20px",
-                                // borderBottomLeftRadius:"20px"
+                                width: "100%",
                               }}
                             >
-                              Add a new attribute
+                                Delete Model
+                            </Button>
+                          </Col>
+                          <Col md={2}>
+                            <Button
+                              color="warning"
+                              onClick={(e) => addAttribute(e, modelIndex)}
+                              style={{
+                                fontSize: "20px",
+                                width: "100%",
+                              }}
+                            >
+                              {model.attributes && model.attributes.length
+                                ? "Add another attribute"
+                                : "Add an attribute"}
                             </Button>
                           </Col>
                         </Row>
                         <div>
-                          {model.attributes.map((attribute, attributeIndex) => (
+                          {model.attributes && model.attributes.map((attribute, attributeIndex) => (
                             <Row form key={attributeIndex}>
                               <Col md={3}>
                                 <Input
                                   type="text"
                                   name="name"
+                                  value={attribute.name}
+                                  onChange = {(e) => updateAttribute(e, modelIndex,attributeIndex)}
                                   placeholder="Attribute Name"
-                                  // value={signUpForm.email}
                                   style={{
-                                    padding: "20px",
-                                    paddingTop: "30px",
-                                    paddingBottom: "30px",
                                     fontSize: "20px",
                                   }}
                                 />
@@ -245,7 +651,8 @@ const CreateApp = (props) => {
                                   <Input
                                     type="select"
                                     name="type"
-                                    style={{ height: "60px", fontSize: "20px" }}
+                                    style={{ fontSize: "20px" }}
+                                    onChange = {(e) => updateAttribute(e, modelIndex,attributeIndex)}
                                   >
                                     <option value="0">
                                       Select Attribute Type
@@ -266,14 +673,17 @@ const CreateApp = (props) => {
                                   <Input
                                     type="select"
                                     name="ref"
-                                    style={{ height: "60px", fontSize: "20px" }}
+                                    style={{ fontSize: "20px" }}
+                                    onChange = {(e) => updateAttribute(e, modelIndex,attributeIndex)}
                                   >
                                     <option value="0">
                                       Select Attribute Ref (if exists)
                                     </option>
-                                    <option value="String">Model 1</option>
-                                    <option value="Number">Model 2</option>
-                                    <option value="Date">Model 3</option>
+                                    {
+                                      signUpForm.schema.map((mod,ind)=>
+                                      <option key={ind} value={mod.name}>{mod.name}</option>
+                                        )
+                                    }
                                   </Input>
                                 </FormGroup>
                               </Col>
@@ -282,7 +692,8 @@ const CreateApp = (props) => {
                                   <Input
                                     type="select"
                                     name="required"
-                                    style={{ height: "60px", fontSize: "20px" }}
+                                    style={{ fontSize: "20px" }}
+                                    onChange = {(e) => updateAttribute(e, modelIndex,attributeIndex)}
                                   >
                                     <option value="0">
                                       Attribute Required
@@ -295,9 +706,9 @@ const CreateApp = (props) => {
                               <Col md={1}>
                                 <Button
                                   color="danger"
+                                  onClick={()=>deleteAttribute(modelIndex,attributeIndex)}
                                   style={{
-                                    // width:"100px",
-                                    padding: "16px",
+                                    fontSize: "20px"
                                   }}
                                 >
                                   Remove
@@ -309,104 +720,6 @@ const CreateApp = (props) => {
                       </div>
                     ))}
                 </div>
-                {/* <Form style={{marginTop:'10px'}}>
-                                    <Row form>
-                                        <Col md={9}>
-                                            <FormGroup>
-                                                <Input
-                                                    type="text" 
-                                                    name="name" 
-                                                    placeholder="Model Name"
-                                                    // value={signUpForm.email}
-                                                    style={{
-                                                        padding:'20px',
-                                                        paddingTop:'30px',
-                                                        paddingBottom:'30px',
-                                                        fontSize:"20px",
-                                                        // width:"800px"
-                                                    }}
-                                                />
-                                            </FormGroup>
-                                            
-                                        </Col>
-                                        <Col md={3}>
-                                                <Button 
-                                                    onClick={addAttribute}
-                                                    color="warning" 
-                                                    style={{
-                                                        fontSize:"20px",
-                                                        width:"400px",
-                                                        padding:'15px'
-                                                        // borderTopLeftRadius:"20px",
-                                                        // borderBottomLeftRadius:"20px"
-                                                    }}
-                                                >
-                                                    Add a new attribute
-                                                </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row form>
-                                        <Col md={3}>
-                                            <Input
-                                                    type="text" 
-                                                    name="name" 
-                                                    placeholder="Attribute Name"
-                                                    // value={signUpForm.email}
-                                                    style={{
-                                                        padding:'20px',
-                                                        paddingTop:'30px',
-                                                        paddingBottom:'30px',
-                                                        fontSize:"20px",
-                                                    }}
-                                                />
-                                        </Col>
-                                        <Col md={3}>
-                                            <FormGroup>
-                                                <Input type="select" name="type" style={{height:'60px',fontSize:"20px"}}>
-                                                    <option value="0">Select Attribute Type</option>
-                                                    <option value="String">String</option>
-                                                    <option value="Number">Number</option>
-                                                    <option value="Date">Date</option>
-                                                    <option value="Buffer">Buffer</option>
-                                                    <option value="Boolean">Boolean</option>
-                                                    <option value="Mixed">Mixed</option>
-                                                    <option value="ObjectId">ObjectId</option>
-                                                    <option value="Array">Array</option>
-                                                </Input>
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={3}>
-                                            <FormGroup>
-                                                <Input type="select" name="ref" style={{height:'60px',fontSize:"20px"}}>
-                                                    <option value="0">Select Attribute Ref (if exists)</option>
-                                                    <option value="String">Model 1</option>
-                                                    <option value="Number">Model 2</option>
-                                                    <option value="Date">Model 3</option>
-                                                </Input>
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={2}>
-                                            <FormGroup>
-                                                <Input type="select" name="required" style={{height:'60px',fontSize:"20px"}}>
-                                                    <option value="0">Attribute Required</option>
-                                                    <option value={true}>True</option>
-                                                    <option value={false}>False</option>
-                                                </Input>
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={1}>
-                                            <Button 
-                                                color="danger"
-                                                style={{
-                                                    // width:"100px",
-                                                    padding:"16px"
-                                                }}
-                                            >Remove</Button>
-                                        </Col>
-                                    </Row>
-                                    
-
-                                </Form> */}
                 <div style={{ marginTop: "10px" }}>
                   <span className="float float-Left">
                     <Button
@@ -417,7 +730,7 @@ const CreateApp = (props) => {
                       style={{
                         fontSize: "20px",
                         padding: "10px",
-                        width: "400px",
+                        minWidth: "200px",
                         borderTopLeftRadius: "20px",
                         borderBottomLeftRadius: "20px",
                       }}
@@ -428,11 +741,11 @@ const CreateApp = (props) => {
                   <span className="float float-right">
                     <Button
                       color="secondary"
-                      onClick={()=>console.log(signUpForm)}
+                      onClick={saveForm}
                       style={{
                         fontSize: "20px",
                         padding: "10px",
-                        width: "400px",
+                        minWidth: "200px",
                         borderTopRightRadius: "20px",
                         borderBottomRightRadius: "20px",
                       }}
