@@ -7,9 +7,13 @@
     "node": "12.x"
   },
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
-    "dev": "nodemon server.js"
+    "server": "nodemon server.js --ignore apps/*",
+    "format": "node ./scripts/format.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
@@ -25,10 +29,18 @@
   },
   "homepage": "https://github.com/duttrohan0302/god#readme",
   "dependencies": {
+    "adm-zip": "^0.5.6",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
+    "js-beautify": "^1.14.0",
     "mongoose": "^5.11.9",
+    "mongoose-autopopulate": "^0.12.3",
     "nodemon": "^2.0.6"
   }
 }

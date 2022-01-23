@@ -9,7 +9,7 @@ const DefaultLayout = ({children}) => {
     return (
         <div id="wrapper">
             <div className="container-fluid p-0 min-vh-100" style={{overflowX:'hidden'}}>
-                <div id="page-wrapper">
+                <div style={{backgroundColor: "#B23CFD"}} id="page-wrapper">
                     <Alert />
                     {children}
                 </div>
