@@ -9,8 +9,7 @@
     "server": "nodemon server.js --ignore apps/*",
     "format": "node ./scripts/format.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "spawn",
