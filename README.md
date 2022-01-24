@@ -1,6 +1,11 @@
 # Spawner
 ## The ultimate app which can create any backend app
 
+### Important Links
+1. [Live Link](https://the-spawner.herokuapp.com/)
+2. [Postman Collections](https://www.getpostman.com/collections/a9210bc1c2ab1579d6c7) - Postman collections are also available in JSON format in this repo
+3. [Technical Article]()
+4. [LinkedIn Post]()
 ---
 
 ## Running the app online
@@ -138,7 +143,8 @@ E.g. of JSON object
 >
 > If you used the local end point, go to the root project folder and get your folder from `/apps/` or the zipped file from `/client/public/zips/`. Look for a folder/zipped file with your slug name.
 
-### Add Postman collections
+## Final words
+Feel free to drop in pull requests for any improvements that you see fit, I would love to make this better and collaborate with you all. 
 
-## Author 
-### Rohan Dutt
+---
+Rohan Dutt

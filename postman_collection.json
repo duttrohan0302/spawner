@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "47ebf855-2d6c-4d40-b3dc-2d552fdce651",
+		"name": "Spawner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create custom backend app 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"appName\",\r\n    \"email\": \"appEmail@gmail.com\",\r\n    \"slug\": \"appslug101\", \r\n    \"password\": \"123456\",\r\n    \"schema\": [\r\n        {\r\n            \"name\": \"user\",\r\n            \"isAuth\": true,\r\n            \"attributes\": [\r\n                {\r\n                    \"name\": \"name\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"email\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"password\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"name\": \"state\",\r\n            \"attributes\": [\r\n                {\r\n                    \"name\": \"name\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"name\": \"district\",\r\n            \"attributes\": [\r\n                {\r\n                    \"name\": \"name\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"state_id\",\r\n                    \"type\": \"ObjectId\",\r\n                    \"required\": false\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://the-spawner.herokuapp.com/app",
+					"protocol": "https",
+					"host": [
+						"the-spawner",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"app"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create custom backend app 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"name\": \"appName\",\r\n    \"email\": \"appEmail@gmail.com\",\r\n    \"slug\": \"appslug102\",\r\n    \"password\": \"123456\",\r\n    \"schema\": [\r\n        {\r\n            \"name\": \"student\",\r\n            \"attributes\":[\r\n                {\r\n                    \"name\": \"name\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"email\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"password\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"phone\",\r\n                    \"type\": \"Number\",\r\n                    \"required\": false\r\n                },\r\n                {\r\n                    \"name\": \"class\",\r\n                    \"type\": \"ObjectId\",\r\n                    \"ref\": \"class\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"name\": \"class\",\r\n            \"attributes\":[\r\n                {\r\n                    \"name\": \"name\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"teacher\",\r\n                    \"type\": \"ObjectId\",\r\n                    \"ref\": \"teacher\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"name\": \"teacher\",\r\n            \"attributes\":[\r\n                {\r\n                    \"name\": \"name\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"class\",\r\n                    \"type\": \"ObjectId\",\r\n                    \"ref\": \"class\"\r\n                },\r\n                {\r\n                    \"name\": \"student\",\r\n                    \"type\": \"Array\",\r\n                    \"ref\": \"student\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://the-spawner.herokuapp.com/app",
+					"protocol": "https",
+					"host": [
+						"the-spawner",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"app"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create backend with infinite loop possibility",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"infiniteLoop\",\r\n    \"email\": \"appEmail@gmail.com\",\r\n    \"slug\": \"infinite-loop1\",\r\n    \"password\": \"123456\",\r\n    \"schema\": [\r\n        {\r\n            \"name\": \"user\",\r\n            \"isAuth\": false,\r\n            \"attributes\": [\r\n                {\r\n                    \"name\": \"name\",\r\n                    \"type\": \"String\",\r\n                    \"required\": true\r\n                },\r\n                {\r\n                    \"name\": \"spouse\",\r\n                    \"type\": \"ObjectId\",\r\n                    \"required\": false,\r\n                    \"ref\": \"user\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://the-spawner.herokuapp.com/app",
+					"protocol": "https",
+					"host": [
+						"the-spawner",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"app"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check backend with infinite loop possibility",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://the-spawner.herokuapp.com/myapp/infinite-loop1/user/1/?findBy=_id&value=61eed59d19825600168c5d0a",
+					"protocol": "https",
+					"host": [
+						"the-spawner",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"myapp",
+						"infinite-loop1",
+						"user",
+						"1",
+						""
+					],
+					"query": [
+						{
+							"key": "findBy",
+							"value": "_id"
+						},
+						{
+							"key": "value",
+							"value": "61eed59d19825600168c5d0a"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
