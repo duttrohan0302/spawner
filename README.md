@@ -4,8 +4,9 @@
 ### Important Links
 1. [Live Link](https://the-spawner.herokuapp.com/)
 2. [Postman Collections](https://www.getpostman.com/collections/a9210bc1c2ab1579d6c7) - Postman collections are also available in JSON format in this repo
-3. [Technical Article]()
-4. [LinkedIn Post]()
+3. [Technical Article](https://dev.to/duttrohan0302/the-creation-of-spawner-5k1)
+4. [Demo Link](https://drive.google.com/file/d/1hUqfzG2XY0Kfmu19t1Hi9pfQQHZxzFKj/view?usp=sharing)
+5. [LinkedIn Post](https://www.linkedin.com/posts/rohandutt0302_projects-backend-generalization-activity-6891437675933519873-3guA)
 ---
 
 ## Running the app online
