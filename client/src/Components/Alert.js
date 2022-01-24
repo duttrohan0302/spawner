@@ -8,7 +8,7 @@ const Alert = ({ alerts }) =>
   alerts !== null &&
   alerts.length > 0 &&
   alerts.map(alert => (
-    <UncontrolledAlert key={uuid()} color={alert.alertType}>
+    <UncontrolledAlert key={uuid()} style={{position:"absolute",left:0,top:0,width:"100%"}} color={alert.alertType}>
         {alert.msg}
     </UncontrolledAlert>
   ));

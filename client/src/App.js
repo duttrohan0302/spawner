@@ -6,10 +6,8 @@ import './App.css';
 
 import { Provider } from 'react-redux';
 import store from './Helpers/store';
-import Homepage from './Components/Homepage';
 import Routes from './Routing/Routes';
 
-import DefaultLayoutRoute from './Routing/DefaultLayout';
 
 const App = () => {
   
@@ -18,7 +16,6 @@ const App = () => {
     <Provider store={store}>
         <Router history={history}>
             <Switch>
-              <DefaultLayoutRoute exact path='/' component = {Homepage} />
               <Route component = {Routes} />
             </Switch>
         </Router>
