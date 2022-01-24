@@ -1,18 +1,12 @@
-import React, {  useState } from "react";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Row,
-  Col,
-} from "reactstrap";
+import React, { useState } from "react";
+import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
 import { setAlert } from "../Actions/alertActions";
+import slugify from "../Utils/slugify";
+
 import store from "../Helpers/store";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {MutatingDots} from "react-loader-spinner"
+import { MutatingDots } from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const CreateApp = (props) => {
@@ -25,8 +19,8 @@ const CreateApp = (props) => {
   });
   const [showDownloadLink, setShowDownloadLink] = useState(false);
 
-  const [loading,setLoading] = useState(false)
-  const [appCreated,setAppCreated] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [appCreated, setAppCreated] = useState(false);
   const checkBasicsFilled = () => {
     console.log(signUpForm);
     console.log(!signUpForm.password);
@@ -43,7 +37,7 @@ const CreateApp = (props) => {
   };
   const saveForm = async () => {
     let form = signUpForm;
-    setLoading(true)
+    setLoading(true);
     form.schema.map((model) => {
       if (model.name) {
         if (!model.isAuth || model.isAuth === "isAuth") {
@@ -75,10 +69,10 @@ const CreateApp = (props) => {
       const data = await axios.post("/app", form);
 
       if (data.data) {
-        setLoading(false)
+        setLoading(false);
         setShowDownloadLink(true);
         window.scrollTo(0, 0);
-        setAppCreated(true)
+        setAppCreated(true);
         store.dispatch(
           setAlert(
             "Your backend app has been created successfully. Click on the download button to get it now.",
@@ -87,12 +81,14 @@ const CreateApp = (props) => {
         );
       }
     } catch (err) {
-      setLoading(false)
-      window.scrollTo(0,0)
-      if(err.response.status===409){
-        store.dispatch(setAlert(err.response.data.slug,"danger",4000))
-      }else{
-        store.dispatch(setAlert("An error occurred. Please try again.","danger",4000))
+      setLoading(false);
+      window.scrollTo(0, 0);
+      if (err.response.status === 409) {
+        store.dispatch(setAlert(err.response.data.slug, "danger", 4000));
+      } else {
+        store.dispatch(
+          setAlert("An error occurred. Please try again.", "danger", 4000)
+        );
       }
     }
   };
@@ -252,13 +248,17 @@ const CreateApp = (props) => {
                         style={{
                           fontSize: "20px",
                         }}
+                        autoComplete="off"
                         onChange={(e) =>
                           setSignUpForm({
                             ...signUpForm,
-                            [e.target.name]: e.target.value,
+                            [e.target.name]: slugify(e.target.value),
                           })
                         }
                       />
+                      {signUpForm.slug ? (
+                        <Label>Your slug is {slugify(signUpForm.slug)}</Label>
+                      ) : null}
                     </FormGroup>
                   </Col>
                   <Col>
@@ -332,10 +332,18 @@ const CreateApp = (props) => {
                           borderRadius: "10px",
                         }}
                       >
-                        <Row form style={{marginBottom:"10px"}}>
-                        <Col md={3}>
-                            <div style={{fontSize:"30px",display:"flex",color:"white",alignItems:"center",justifyContent:"center"}}>
-                              Model #{modelIndex+1}
+                        <Row form style={{ marginBottom: "10px" }}>
+                          <Col md={3}>
+                            <div
+                              style={{
+                                fontSize: "30px",
+                                display: "flex",
+                                color: "white",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              Model #{modelIndex + 1}
                             </div>
                           </Col>
                           <Col md={2}>
@@ -402,8 +410,10 @@ const CreateApp = (props) => {
                           {model.attributes &&
                             model.attributes.map(
                               (attribute, attributeIndex) => (
-                                <Row form key={attributeIndex}
-                                  style={{marginTop:"20px"}}
+                                <Row
+                                  form
+                                  key={attributeIndex}
+                                  style={{ marginTop: "20px" }}
                                 >
                                   <Col md={3}>
                                     <Input
@@ -419,7 +429,7 @@ const CreateApp = (props) => {
                                       }
                                       placeholder="Attribute Name"
                                       style={{
-                                        fontSize: "20px"
+                                        fontSize: "20px",
                                       }}
                                     />
                                   </Col>
@@ -518,7 +528,7 @@ const CreateApp = (props) => {
                                       }
                                       style={{
                                         fontSize: "20px",
-                                        width:"100%"
+                                        width: "100%",
                                       }}
                                     >
                                       Remove
@@ -531,31 +541,32 @@ const CreateApp = (props) => {
                       </div>
                     ))}
                 </div>
-                <div style={{ marginTop: "10px" }} className="float float-right">
-
+                <div
+                  style={{ marginTop: "10px" }}
+                  className="float float-right"
+                >
                   <span className="float float-right">
-                  {
-                    loading ?
-                    <MutatingDots ariaLabel="loading-indicator" color="yellow"/>
-                    :
-                    <Button
-                    color="success"
-                    onClick={saveForm}
-                    style={{
-                      fontSize: "20px",
-                      padding: "10px",
-                      minWidth: "200px",
-                      borderTopRightRadius: "20px",
-                      borderBottomRightRadius: "20px",
-                    }}
-                    disabled={appCreated}
-                  >
-                    {
-                      appCreated ? "Saved" : "Save"
-                    }
-                  </Button>
-                  }
-
+                    {loading ? (
+                      <MutatingDots
+                        ariaLabel="loading-indicator"
+                        color="yellow"
+                      />
+                    ) : (
+                      <Button
+                        color="success"
+                        onClick={saveForm}
+                        style={{
+                          fontSize: "20px",
+                          padding: "10px",
+                          minWidth: "200px",
+                          borderTopRightRadius: "20px",
+                          borderBottomRightRadius: "20px",
+                        }}
+                        disabled={appCreated}
+                      >
+                        {appCreated ? "Saved" : "Save"}
+                      </Button>
+                    )}
                   </span>
                 </div>
               </Form>
